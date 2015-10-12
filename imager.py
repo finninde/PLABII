@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 __author__ = 'keithd'
 
 # This is the skeleton version of imager.py that is distributed to PLAB-2 students
@@ -200,5 +201,18 @@ def reformat(in_fid, out_ext='jpeg',scalex=1.0,scaley=1.0):
     im = Imager(in_fid)
     im = im.scale(scalex,scaley)
     im.dump_image(base,out_ext)
+=======
+#TODO: Import only functions needed
+from PIL import *
+
+Class Imager():
+    def __init__(self, fid = False, image = False, width = 100, height = 100, background = 'black', mode = 'RGB'):
+        self.fid = fid
+        self.image = image
+        self.xmax = width
+        self.ymax = height
+        self.mode = mode
+        #self.init_image(background = background)
+>>>>>>> 284c50a590c8235fce5073710392f0588d78a6af
 
 
