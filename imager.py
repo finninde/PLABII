@@ -173,7 +173,7 @@ class Imager():
         return self.tunnel(levels,scale).morph4(im2.tunnel(levels,scale))
 
 
-    ### Custom methods
+    ### CUSTOM METHODS
     ### Image-enhance methods
 
     #Adjusts image sharpness. 0.0 = blurred, 1.0 = original, 2.0 = Sharpened image
@@ -187,6 +187,16 @@ class Imager():
     def contrast(self, image=False, degree = 0.5):
         image = image if image else self.image
         return Imager(image = ImageEnhance.Contrast(image).enhance(degree))
+
+    #Adjusts image brightness, 0.0 = black image, 1.0 = original image
+    def brightness(self, image = False, degree = 0.5):
+        image = image if image else self.image
+        return Imager(image = ImageEnhance.Brightness(image).enhance(degree))
+
+    #Test FIND_EDGES
+    def FIND_EDGES(self,image=False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.FIND_EDGES))
 
 ### *********** TESTS ************************
 
@@ -219,4 +229,3 @@ def reformat(in_fid, out_ext='jpeg',scalex=1.0,scaley=1.0):
     im = Imager(in_fid)
     im = im.scale(scalex,scaley)
     im.dump_image(base,out_ext)
-

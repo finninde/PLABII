@@ -7,5 +7,5 @@ if __name__ == "__main__":
 
     #Testing contrast method
     testImage = Imager(fid=path.normpath("images/einstein.gif"))
-    testImage = testImage.contrast(degree=1.0)
-    testImage.display()
+    edgeImage = testImage.FIND_EDGES()
+    testImage.morph(im2 = edgeImage).display()
