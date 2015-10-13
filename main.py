@@ -5,7 +5,7 @@ from os import path
 if __name__ == "__main__":
     #testImage = ptest2()    #Nothing's like a trippy Einstein-pic to get things going.
 
-    #Testing blur method
-    testImage = Imager(fid=path.normpath("images/einstein.jpeg"))
-    testImage = testImage.blur().blur().blur().blur().blur().blur().blur()
+    #Testing contrast method
+    testImage = Imager(fid=path.normpath("images/einstein.gif"))
+    testImage = testImage.contrast(degree=1.0)
     testImage.display()

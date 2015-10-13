@@ -177,9 +177,16 @@ class Imager():
     ### Image-enhance methods
 
     #Adjusts image sharpness. 0.0 = blurred, 1.0 = original, 2.0 = Sharpened image
-    def blur(self,image=False,factor=0.0):
+    def blur(self,image=False, degree = 0.0):
         image = image if image else self.image
-        return Imager(image=ImageEnhance.Sharpness(image).enhance(factor))
+        return Imager(image=ImageEnhance.Sharpness(image).enhance(degree))
+
+    #Image color balance is already provided by scale_colors
+
+    #Adjusts image contrast. 0.0 = solid grey image, 1.0 = original image
+    def contrast(self, image=False, degree = 0.5):
+        image = image if image else self.image
+        return Imager(image = ImageEnhance.Contrast(image).enhance(degree))
 
 ### *********** TESTS ************************
 
