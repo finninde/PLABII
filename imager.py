@@ -66,7 +66,12 @@ class Imager():
         d.text(position, text , font=fnt, fill=(255,255,255,alpha))
         # Return the two images combined
         return Image.alpha_composite(base, txt)
-        
+       
+    # This equalizes the image
+    def equalize(self, image=False, mask=None):
+        image = image if image else self.image
+        return ImageOps.equalize(image, mask)
+
     # This returns a resized copy of the image
     def resize(self,new_width,new_height,image=False):
         image = image if image else self.image
