@@ -1,7 +1,5 @@
-from PIL import Image
-from PIL import ImageFilter
-from PIL import ImageEnhance
-from PIL import ImageDraw, ImageFont
+from os import path
+from PIL import Image, ImageFilter, ImageEnhance, ImageDraw, ImageFont, ImageOps
 
 class Imager():
 
@@ -181,18 +179,78 @@ class Imager():
     def mortun(self,im2,levels=5,scale=0.75):
         return self.tunnel(levels,scale).morph4(im2.tunnel(levels,scale))
 
+
+    ### CUSTOM METHODS
+    ### Image-enhance methods
+
+    #Adjusts image sharpness. 0.0 = blurred, 1.0 = original, 2.0 = Sharpened image
+    def blur(self,image=False, degree = 0.0):
+        image = image if image else self.image
+        return Imager(image=ImageEnhance.Sharpness(image).enhance(degree))
+
+    #Image color balance is already provided by scale_colors
+
+    #Adjusts image contrast. 0.0 = solid grey image, 1.0 = original image
+    def contrast(self, image=False, degree = 0.5):
+        image = image if image else self.image
+        return Imager(image = ImageEnhance.Contrast(image).enhance(degree))
+
+    #Adjusts image brightness, 0.0 = black image, 1.0 = original image
+    def brightness(self, image = False, degree = 0.5):
+        image = image if image else self.image
+        return Imager(image = ImageEnhance.Brightness(image).enhance(degree))
+
+    ###IMAGE-FILTER METHODS
+    def blurFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.BLUR))
+
+    def contourFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.CONTOUR))
+
+    def detailFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.DETAIL))
+
+    def edgeEnhanceFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.EDGE_ENHANCE))
+
+    def moreEdgeEnhanceFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.EDGE_ENHANCE_MORE))
+
+    def embossFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.EMBOSS))
+
+    def findEdgesFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.FIND_EDGES))
+
+    def smoothFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.SMOOTH))
+
+    def moreSmoothFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.SMOOTH_MORE))
+
+    def sharpenFilter(self, image = False):
+        image = image if image else self.image
+        return Imager(image = image.filter(ImageFilter.SHARPEN))
+
+
 ### *********** TESTS ************************
-
-# Note: the default file paths for these examples are for unix!
-
-def ptest1(fid1='images/kdfinger.jpeg', fid2="images/einstein.jpeg",steps=5,newsize=250):
+def ptest1(fid1=path.normpath('images/kdfinger.jpeg'), fid2=path.normpath("images/einstein.jpeg"),steps=5,newsize=250):
     im1 = Imager(fid1); im2 = Imager(fid2)
     im1 = im1.resize(newsize,newsize); im2 = im2.resize(newsize,newsize)
     roll = im1.morphroll(im2,steps=steps)
     roll.display()
     return roll
 
-def ptest2(fid1='images/einstein.jpeg',outfid='images/tunnel.jpeg',levels=3,newsize=250,scale=0.8):
+def ptest2(fid1=path.normpath('images/einstein.jpeg'),outfid=path.normpath('images/tunnel.jpeg'),levels=3,newsize=250,scale=0.8):
     im1 = Imager(fid1);
     im1 = im1.resize(newsize,newsize);
     im2 = im1.tunnel(levels=levels,scale=scale)
@@ -200,7 +258,7 @@ def ptest2(fid1='images/einstein.jpeg',outfid='images/tunnel.jpeg',levels=3,news
     im2.dump_image(outfid)
     return im2
 
-def ptest3(fid1='images/kdfinger.jpeg', fid2="images/einstein.jpeg",newsize=250,levels=4,scale=0.75):
+def ptest3(fid1=path.normpath('images/kdfinger.jpeg'), fid2=path.normpath("images/einstein.jpeg"),newsize=250,levels=4,scale=0.75):
     im1 = Imager(fid1); im2 = Imager(fid2)
     im1 = im1.resize(newsize,newsize); im2 = im2.resize(newsize,newsize)
     box = im1.mortun(im2,levels=levels,scale=scale)
