@@ -1,7 +1,3 @@
-__author__ = 'keithd'
-
-# This is the skeleton version of imager.py that is distributed to PLAB-2 students
-
 from PIL import Image
 from PIL import ImageFilter
 from PIL import ImageEnhance
