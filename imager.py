@@ -5,6 +5,8 @@ __author__ = 'keithd'
 from PIL import Image
 from PIL import ImageFilter
 from PIL import ImageEnhance
+from PIL import ImageDraw
+from PIL import ImageOps
 from os import path
 
 
@@ -169,6 +171,15 @@ class Imager():
 
     def mortun(self,im2,levels=5,scale=0.75):
         return self.tunnel(levels,scale).morph4(im2.tunnel(levels,scale))
+
+
+    ### Custom methods
+    ### Image-enhance methods
+
+    #Adjusts image sharpness. 0.0 = blurred, 1.0 = original, 2.0 = Sharpened image
+    def blur(self,image=False,factor=0.0):
+        image = image if image else self.image
+        return Imager(image=ImageEnhance.Sharpness(image).enhance(factor))
 
 ### *********** TESTS ************************
 
