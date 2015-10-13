@@ -51,10 +51,11 @@ class Imager():
     def get_color_rgb(self,colorname): return Imager._pixel_colors_[colorname]
 
     # This writes text in the image
-    def write_text(self, image=False, fontpath=path.normpath('Unique.ttf'), size=40, text="Unique", alpha=128):
+    def write_text(self, image=False, fontpath=path.normpath('Unique.ttf'), size=40, text="Unique", alpha=128,
+                   position=(10, 10)):
         image = image if image else self.image
         # Our base image is the class image
-        base = self.image
+        base = self.image.convert('RGBA')
         # Sets font
         fnt = ImageFont.truetype(fontpath, size)
         # Make an image to draw on
@@ -62,7 +63,7 @@ class Imager():
         # Make the image drawable
         d = ImageDraw.Draw(txt)
         # Draw text on image
-        d.text((10,10), text , font=fnt, fill=(255,255,255,alpha))
+        d.text(position, text , font=fnt, fill=(255,255,255,alpha))
         # Return the two images combined
         return Image.alpha_composite(base, txt)
         

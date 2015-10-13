@@ -7,4 +7,4 @@ if __name__ == "__main__":
 
     #Testing contrast method
     testImage = Imager(fid=path.normpath("images/einstein.gif"))
-    edgeImage = testImage.blurFilter().display()
+    bildeMedTekst = testImage.write_text().show()
