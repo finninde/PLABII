@@ -1,10 +1,5 @@
-from PIL import Image
-from PIL import ImageFilter
-from PIL import ImageEnhance
-from PIL import ImageDraw
-from PIL import ImageOps
 from os import path
-
+from PIL import Image, ImageFilter, ImageEnhance, ImageDraw, ImageFont, ImageOps
 
 class Imager():
 
@@ -55,6 +50,22 @@ class Imager():
 
     def get_color_rgb(self,colorname): return Imager._pixel_colors_[colorname]
 
+    # This writes text in the image
+    def write_text(self, image=False, fontpath=path.normpath('Unique.ttf'), size=40, text="Unique", alpha=128):
+        image = image if image else self.image
+        # Our base image is the class image
+        base = self.image
+        # Sets font
+        fnt = ImageFont.truetype(fontpath, size)
+        # Make an image to draw on
+        txt = Image.new('RGBA', base.size, (255,255,255,0))
+        # Make the image drawable
+        d = ImageDraw.Draw(txt)
+        # Draw text on image
+        d.text((10,10), text , font=fnt, fill=(255,255,255,alpha))
+        # Return the two images combined
+        return Image.alpha_composite(base, txt)
+        
     # This returns a resized copy of the image
     def resize(self,new_width,new_height,image=False):
         image = image if image else self.image
